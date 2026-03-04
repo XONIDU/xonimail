@@ -1,8 +1,12 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import sys
 import signal
+import os
 
 # -----------------------------------------------------------
 # MANEJADOR PARA CTRL+C
@@ -14,31 +18,60 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 # -----------------------------------------------------------
-# FUNCION PARA MOSTRAR INSTRUCCIONES DE LA KEY
+# FUNCION PARA MANEJO DE TOKENS
 # -----------------------------------------------------------
-def mostrar_instrucciones_key():
-    print("\n" + "="*60)
-    print("INSTRUCCIONES: COMO OBTENER TU CONTRASENA DE APLICACION")
-    print("="*60)
-    print("\nPara Gmail, necesitas una 'Contrasena de aplicacion' porque:")
-    print("  * La contrasena normal de Gmail NO funciona directamente")
-    print("  * Debes tener activada la verificacion en dos pasos")
+def obtener_token():
+    """Obtiene el token de token.txt o solicita crear el archivo"""
+    archivo_token = "token.txt"
     
-    print("\nPASOS PARA OBTENERLA:")
-    print("  1. Ve a tu cuenta de Google: myaccount.google.com")
+    # Verificar si existe el archivo
+    if os.path.exists(archivo_token):
+        with open(archivo_token, 'r') as f:
+            token = f.read().strip()
+            if token:
+                return token
+            else:
+                print("\nEl archivo token.txt esta vacio.")
+    
+    # Si no existe o esta vacio, mostrar instrucciones
+    print("\n" + "="*60)
+    print("ARCHIVO DE TOKEN NO ENCONTRADO O VACIO")
+    print("="*60)
+    print("\nGmail requiere una 'Contraseña de aplicacion' especial.")
+    print("Debes crear un archivo 'token.txt' con tu token.")
+    
+    print("\nCOMO OBTENER TU CONTRASEÑA DE APLICACION:")
+    print("  1. Ve a tu cuenta de Google: https://myaccount.google.com/")
     print("  2. Ve a 'Seguridad'")
     print("  3. Activa la 'Verificacion en dos pasos' (si no la tienes)")
-    print("  4. Vuelve a 'Seguridad' y busca 'Contrasenas de aplicacion'")
+    print("  4. Regresa a Seguridad y busca 'Contraseñas de aplicacion'")
     print("  5. Selecciona 'Correo' y 'Windows Computer'")
-    print("  6. Copia la contrasena de 16 caracteres que te generan")
+    print("  6. Copia la contraseña de 16 caracteres que se genera")
     
-    print("\nSi no ves 'Contrasenas de aplicacion', puede que:")
-    print("  * No tengas activada la verificacion en dos pasos")
-    print("  * Tu administrador bloqueo esta funcion")
-    print("  * Prueba con una cuenta personal de Gmail")
+    print("\nCOMO CREAR EL ARCHIVO:")
+    print("  1. Crea un archivo llamado 'token.txt' en la misma carpeta")
+    print("  2. Pegas tu contraseña de aplicacion (solo el token, sin espacios)")
+    print("  3. Guardas el archivo y ejecutas este programa nuevamente")
     
     print("\nEnlace directo: https://myaccount.google.com/apppasswords")
     print("="*60 + "\n")
+    
+    # Preguntar si quiere crear el archivo ahora
+    respuesta = input("¿Quieres crear el archivo token.txt ahora? (s/n): ").lower()
+    if respuesta == 's' or respuesta == 'si':
+        token_nuevo = input("Pega tu token aqui: ").strip()
+        if token_nuevo:
+            with open(archivo_token, 'w') as f:
+                f.write(token_nuevo)
+            print("Token guardado en token.txt")
+            return token_nuevo
+        else:
+            print("Token vacio. No se guardo nada.")
+            print("Ejecuta el programa nuevamente cuando tengas el token.")
+            sys.exit(1)
+    else:
+        print("\nEjecuta el programa nuevamente cuando tengas el archivo token.txt listo.")
+        sys.exit(0)
 
 # -----------------------------------------------------------
 # FUNCION PARA MOSTRAR MENSAJE DE AYUDA
@@ -51,14 +84,14 @@ def mostrar_ayuda():
     print("  * CTRL+C - Salir del programa")
     print("  * ENTER - Continuar con el siguiente paso")
     print("\nPara enviar correos:")
-    print("  1. Ingresa tu correo Gmail")
-    print("  2. Ingresa tu contrasena de aplicacion (token)")
+    print("  1. El token se lee automaticamente de token.txt")
+    print("  2. Ingresa tu correo Gmail")
     print("  3. Escribe el asunto y mensaje")
     print("  4. Agrega los destinatarios")
     print("="*50 + "\n")
 
 # -----------------------------------------------------------
-# CONFIGURACION INICIAL (solicitada al usuario)
+# CONFIGURACION INICIAL
 # -----------------------------------------------------------
 print("\n" + "="*60)
 print("XONIMAIL - ENVIO DE CORREOS DESDE TERMINAL")
@@ -66,8 +99,11 @@ print("="*60)
 print("(Presiona CTRL+C en cualquier momento para salir)")
 print("="*60 + "\n")
 
-# Mostrar ayuda automaticamente la primera vez
+# Mostrar ayuda automaticamente
 mostrar_ayuda()
+
+# Obtener token
+token = obtener_token()
 
 # Solicitar credenciales
 remitente = input("Tu correo Gmail: ").strip()
@@ -75,23 +111,8 @@ while not remitente:
     print("El correo no puede estar vacio")
     remitente = input("Tu correo Gmail: ").strip()
 
-# Solicitar token con verificacion de vacio
-while True:
-    password = input("Tu contrasena de aplicacion (token): ").strip()
-    if password:
-        break
-    else:
-        print("\n*** NO HAS INGRESADO UNA CONTRASENA DE APLICACION ***")
-        print("Esto es necesario para poder enviar correos desde Gmail.")
-        print("\nPresiona ENTER para ver las instrucciones de como obtenerla,")
-        respuesta = input("o escribe cualquier tecla para intentar nuevamente: ")
-        
-        if respuesta == "":
-            mostrar_instrucciones_key()
-            print("\nVuelve cuando tengas tu contrasena de aplicacion.")
-            continuar = input("Presiona ENTER para continuar... ")
-        else:
-            print("Intentemos de nuevo...\n")
+# Mostrar que el token se cargo correctamente
+print("Token cargado desde token.txt")
 
 # Solicitar datos del mensaje
 asunto = input("\nAsunto del correo: ")
@@ -143,13 +164,13 @@ print("-"*30)
 print(cuerpo)
 print("-"*30)
 
-confirmar = input("\nEnviar correos? (s/n): ").lower()
+confirmar = input("\n¿Enviar correos? (s/n): ").lower()
 if confirmar != 's' and confirmar != 'si':
     print("\nEnvio cancelado. Hasta luego!")
     sys.exit(0)
 
 # -----------------------------------------------------------
-# CONFIGURACION DEL SERVIDOR SMTP DE GMAIL
+# ENVIO DE CORREOS
 # -----------------------------------------------------------
 print("\nIniciando envio... (CTRL+C para cancelar)")
 
@@ -160,7 +181,7 @@ try:
     server.starttls()
     
     print("Autenticando...")
-    server.login(remitente, password)
+    server.login(remitente, token)
 
     print("\nInicio de sesion exitoso. Enviando correos...\n")
 
@@ -210,6 +231,7 @@ except KeyboardInterrupt:
 except Exception as e:
     print(f"\nError critico: {e}")
     print("\nPosibles soluciones:")
-    print("  * Verifica que la contrasena de aplicacion sea correcta")
+    print("  * Verifica que el token en token.txt sea correcto")
     print("  * Asegurate de tener activada la verificacion en dos pasos")
     print("  * Revisa tu conexion a internet")
+    print("  * Borra token.txt y genera uno nuevo")
