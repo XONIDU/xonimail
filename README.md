@@ -29,64 +29,64 @@ El programa requiere las siguientes dependencias:
 - smtplib (incluido con Python)
 - email (incluido con Python)
 
-No se necesitan dependencias externas, pero se incluye un archivo requirements.txt por compatibilidad.
+No se necesitan dependencias externas, pero se incluye un archivo requisitos.txt por compatibilidad.
 
 #### Instalacion por Sistema Operativo
 
 ##### Linux (General)
 ```bash
-pip install -r requirements.txt
+pip install -r requisitos.txt
 ```
 
 ##### Arch Linux / Manjaro
 ```bash
 sudo pacman -S python-pip
-pip install --break-system-packages -r requirements.txt
+pip install --break-system-packages -r requisitos.txt
 ```
 
 ##### Debian / Ubuntu / antiX
 ```bash
 sudo apt update
 sudo apt install python3 python3-pip -y
-pip3 install --break-system-packages -r requirements.txt
+pip3 install --break-system-packages -r requisitos.txt
 ```
 
 ##### Fedora / RHEL / CentOS
 ```bash
 sudo dnf install python3-pip
-pip3 install --break-system-packages -r requirements.txt
+pip3 install --break-system-packages -r requisitos.txt
 ```
 
 ##### openSUSE
 ```bash
 sudo zypper install python3-pip
-pip3 install --break-system-packages -r requirements.txt
+pip3 install --break-system-packages -r requisitos.txt
 ```
 
 ##### macOS
 ```bash
 # Usando Homebrew
 brew install python3
-pip3 install -r requirements.txt
+pip3 install -r requisitos.txt
 
 # O usando pip directamente
-pip3 install -r requirements.txt
+pip3 install -r requisitos.txt
 ```
 
 ##### Windows
 ```bash
 # En Command Prompt o PowerShell
-pip install -r requirements.txt
+pip install -r requisitos.txt
 
 # Si tienes problemas con permisos
-pip install --user -r requirements.txt
+pip install --user -r requisitos.txt
 ```
 
 ##### Termux (Android)
 ```bash
 pkg update
 pkg install python
-pip install -r requirements.txt
+pip install -r requisitos.txt
 ```
 
 ### 3. Configurar Contraseña de Aplicacion de Gmail
@@ -137,7 +137,7 @@ El programa te guiara a traves de:
 
 - `start.py` - Programa principal
 - `token.txt` - Archivo con tu token (debes crearlo)
-- `requirements.txt` - Dependencias de Python (opcional)
+- `requisitos.txt` - Dependencias de Python (opcional)
 
 ## Requisitos
 
@@ -201,7 +201,7 @@ Ingresa los 1 correos:
 ### Error de permisos en Linux
 ```bash
 # Si tienes problemas con --break-system-packages
-pip install --user -r requirements.txt
+pip install --user -r requisitos.txt
 ```
 
 ## Nota de Seguridad
