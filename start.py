@@ -78,7 +78,7 @@ def obtener_token():
 # -----------------------------------------------------------
 def mostrar_ayuda():
     print("\n" + "="*50)
-    print("AYUDA - XONIMAIL")
+    print("XONIMAIL")
     print("="*50)
     print("Comandos disponibles:")
     print("  * CTRL+C - Salir del programa")
@@ -93,11 +93,6 @@ def mostrar_ayuda():
 # -----------------------------------------------------------
 # CONFIGURACION INICIAL
 # -----------------------------------------------------------
-print("\n" + "="*60)
-print("XONIMAIL - ENVIO DE CORREOS DESDE TERMINAL")
-print("="*60)
-print("(Presiona CTRL+C en cualquier momento para salir)")
-print("="*60 + "\n")
 
 # Mostrar ayuda automaticamente
 mostrar_ayuda()
