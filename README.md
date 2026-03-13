@@ -19,7 +19,7 @@ XONIMAIL es un cliente liviano de Gmail diseñado para ejecutarse completamente 
 
 ---
 
-## ⚙️ ¿Qué hace?
+## ⚙️ ¿Qué hace? 
 
 **Autenticación Segura:** Usa contraseñas de aplicación de Gmail almacenadas en token.txt
 
@@ -31,7 +31,7 @@ XONIMAIL es un cliente liviano de Gmail diseñado para ejecutarse completamente 
 
 **Resumen de Envío:** Vista previa antes de enviar con confirmación
 
-**Estadísticas:** Reporte de envíos exitosos y fallidos
+**Estadísticas:** Reporte de envíos exitosos/fallidos
 
 ### Características principales:
 
