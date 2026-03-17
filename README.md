@@ -1,208 +1,191 @@
-# 📧 XONIMAIL - Cliente de Gmail para Terminal
-# Creador: Darian Alberto Camacho Salas
-# Equipo: XONIDU
+# 📄 XONIMAIL
 
-**Sistema de envío de correos desde terminal para dispositivos de bajos recursos**
+**Advertencia:** Este código tiene únicamente fines educativos. No debe usarse para actividades malintencionadas ni para enviar correos no deseados. El autor no se hace responsable del uso indebido.
 
----
+## 🎯 ¿Qué es XONIMAIL?
 
-## 🎯 Objetivo
+XONIMAIL es un cliente de Gmail para terminal diseñado para dispositivos de bajos recursos (ASUS Eee PC, laptops antiguas, etc.). Consta de dos componentes:
 
-XONIMAIL es un cliente liviano de Gmail diseñado para ejecutarse completamente en terminal, ideal para:
+- **start.py** - Lanzador universal que verifica dependencias y ejecuta el programa principal
+- **xonimail.py** - Programa principal con la funcionalidad de envío de correos
 
-- 📨 **Enviar** correos electrónicos sin necesidad de navegador web
-- 💻 **Funcionar** en dispositivos de bajos recursos (ASUS Eee PC, laptops antiguas)
-- 🔐 **Autenticarse** de forma segura mediante contraseñas de aplicación
-- 📤 **Gestionar** múltiples destinatarios en un solo envío
-- 📝 **Redactar** mensajes multilínea de forma interactiva
-- ⚡ **Optimizar** el uso de recursos del sistema
+Permite:
 
----
+- 📨 Enviar correos electrónicos sin necesidad de navegador web
+- 📤 Gestionar múltiples destinatarios en un solo envío
+- 📝 Redactar mensajes multilínea de forma interactiva
+- 🔐 Autenticación segura mediante contraseñas de aplicación de Gmail
+- ⚡ Optimizado para funcionar en dispositivos con recursos limitados
 
-## ⚙️ ¿Qué hace? 
-
-**Autenticación Segura:** Usa contraseñas de aplicación de Gmail almacenadas en token.txt
-
-**Composición Interactiva:** Escribe mensajes con múltiples líneas (ENTER dos veces para finalizar)
-
-**Múltiples Destinatarios:** Envía a uno o varios correos simultáneamente
-
-**Gestión de Tokens:** Si no existe token.txt, muestra instrucciones detalladas para crearlo
-
-**Resumen de Envío:** Vista previa antes de enviar con confirmación
-
-**Estadísticas:** Reporte de envíos exitosos/fallidos
-
-### Características principales:
-
-- ✅ Interfaz 100% terminal - Sin dependencias gráficas
-- ✅ Lectura automática de token desde archivo
-- ✅ Instrucciones integradas para obtener contraseña de aplicación
-- ✅ Manejo de errores con soluciones sugeridas
-- ✅ Interrupción segura con CTRL+C
-- ✅ Composición de mensajes multilínea
-- ✅ Confirmación antes de enviar
-- ✅ Resumen detallado de envíos
-- ✅ Compatible con Python 3.6+
+El script se ejecuta completamente en terminal, ideal para sistemas sin interfaz gráfica o con recursos muy limitados.
 
 ---
 
 ## 📥 Instalación
 
-### Requisitos previos
-- Python 3.6 o superior
-- pip (gestor de paquetes de Python)
-- Conexión a internet
-- Cuenta de Gmail con verificación en dos pasos activada
+Clona el repositorio desde GitHub:
 
-### Pasos de instalación
-
-1. **Clona el repositorio:**
 ```bash
 git clone https://github.com/XONIDU/xonimail.git
 cd xonimail
 ```
 
-2. **Instala las dependencias (solo por compatibilidad):**
+---
 
-#### 🐧 Arch Linux / Manjaro
+## ✅ Requisitos
+
+- Python 3.6+ instalado
+- Conexión a internet
+- Cuenta de Gmail con verificación en dos pasos activada
+- Contraseña de aplicación de Gmail (16 caracteres)
+
+---
+
+## 🔧 Instalación por plataforma
+
+### 🐧 Arch Linux / Manjaro
+
 ```bash
+# Instalar Python y pip
 sudo pacman -S python-pip
-pip install --break-system-packages -r requisitos.txt
+
+# Instalar dependencias Python
+pip install -r requisitos.txt --break-system-packages
 ```
 
-#### 🐧 Debian / Ubuntu / antiX
+### 🐧 Debian / Ubuntu / antiX / Mint
+
 ```bash
+# Actualizar repositorios
 sudo apt update
+
+# Instalar Python y pip
 sudo apt install python3 python3-pip -y
-pip3 install --break-system-packages -r requisitos.txt
+
+# Instalar dependencias Python
+pip3 install -r requisitos.txt --break-system-packages
 ```
 
-#### 🐧 Fedora / RHEL / CentOS
+### 🐧 Fedora / RHEL / CentOS
+
 ```bash
+# Instalar Python y pip
 sudo dnf install python3-pip
-pip3 install --break-system-packages -r requisitos.txt
+
+# Instalar dependencias Python
+pip3 install -r requisitos.txt --break-system-packages
 ```
 
-#### 🐧 openSUSE
+### 🐧 openSUSE
+
 ```bash
+# Instalar Python y pip
 sudo zypper install python3-pip
-pip3 install --break-system-packages -r requisitos.txt
+
+# Instalar dependencias Python
+pip3 install -r requisitos.txt --break-system-packages
 ```
 
-#### 🍎 macOS
+### 🍎 macOS
+
 ```bash
 # Usando Homebrew
 brew install python3
-pip3 install -r requisitos.txt
 
-# O usando pip directamente
+# Instalar dependencias Python
 pip3 install -r requisitos.txt
 ```
 
-#### 🪟 Windows
+### 🪟 Windows
+
+1. Instala Python 3 desde [python.org](https://www.python.org/downloads/)
+2. Abre una terminal (cmd o PowerShell) y ejecuta:
+
 ```bash
-# En Command Prompt o PowerShell
 pip install -r requisitos.txt
-
-# Si tienes problemas con permisos
-pip install --user -r requisitos.txt
 ```
 
-#### 📱 Termux (Android)
+### 📱 Termux (Android)
+
 ```bash
+# Actualizar paquetes
 pkg update
+
+# Instalar Python
 pkg install python
+
+# Instalar dependencias
 pip install -r requisitos.txt
 ```
 
-> **Nota:** Este programa solo usa librerías estándar de Python. El archivo requisitos.txt es solo por compatibilidad con pip.
-
 ---
 
-## 🔑 Cómo obtener tu token de Gmail
+## 🔑 Configuración del Token
 
-```
-╔══════════════════════════════════════════════════════════╗
-║     INSTRUCCIONES PARA OBTENER CONTRASEÑA DE APLICACIÓN  ║
-╠══════════════════════════════════════════════════════════╣
-║                                                          ║
-║  1. Ve a tu cuenta de Google:                           ║
-║     https://myaccount.google.com/                        ║
-║                                                          ║
-║  2. Ve a "Seguridad"                                     ║
-║                                                          ║
-║  3. Activa la "Verificación en dos pasos"                ║
-║     (si no la tienes activada)                           ║
-║                                                          ║
-║  4. Regresa a Seguridad y busca                          ║
-║     "Contraseñas de aplicación"                          ║
-║                                                          ║
-║  5. Selecciona "Correo" y "Windows Computer"             ║
-║                                                          ║
-║  6. Copia la contraseña de 16 caracteres                 ║
-║                                                          ║
-╚══════════════════════════════════════════════════════════╝
-```
+Gmail requiere una **contraseña de aplicación** especial en lugar de tu contraseña normal:
 
-> **Importante:** La contraseña normal de Gmail NO funciona. Debes usar una contraseña de aplicación específica.
+### Cómo obtener tu token:
 
----
+1. Ve a tu cuenta de Google: https://myaccount.google.com/
+2. Ve a **Seguridad**
+3. Activa la **Verificación en dos pasos** (si no la tienes activada)
+4. Regresa a Seguridad y busca **Contraseñas de aplicación**
+5. Selecciona **Correo** y **Windows Computer**
+6. Copia la contraseña de 16 caracteres que se genera
 
-## 🚀 Uso del sistema
+### Crear archivo token.txt:
 
-### 1. Crear archivo de token
 ```bash
-# Crea el archivo token.txt con tu contraseña de aplicación
+# Crea el archivo con tu token (reemplaza con tu token real)
 echo "tu-token-de-16-caracteres-aqui" > token.txt
-# o usa nano/vim
+
+# O usando nano/vim
 nano token.txt
 ```
 
-### 2. Ejecutar el programa
+> **Nota:** La contraseña normal de Gmail NO funciona. Debes usar una contraseña de aplicación específica.
+
+---
+
+## ⚙️ Uso
+
+Ejecuta el lanzador:
+
 ```bash
 python start.py
 # o
 python3 start.py
 ```
 
-### 3. Seguir las instrucciones interactivas
-```
-============================================================
-XONIMAIL - ENVIO DE CORREOS DESDE TERMINAL
-============================================================
-(Presiona CTRL+C en cualquier momento para salir)
+El programa te guiará paso a paso:
 
-Tu correo Gmail: ejemplo@gmail.com
-Token cargado desde token.txt
+1. Verifica que exista el archivo `token.txt`
+2. Solicita tu dirección de correo Gmail
+3. Pide el asunto del mensaje
+4. Permite redactar el contenido (ENTER dos veces para finalizar)
+5. Solicita cantidad de destinatarios y sus direcciones
+6. Muestra un resumen del envío
+7. Confirma antes de enviar
+8. Muestra el progreso y resultado final
 
-Asunto del correo: Prueba desde XONIMAIL
+### Características interactivas:
 
-Escribe tu mensaje (presiona ENTER dos veces para finalizar):
-Hola, este es un correo de prueba
-enviado desde XONIMAIL.
+- Si **token.txt** no existe, el programa muestra instrucciones para crearlo
+- Presiona **CTRL+C** en cualquier momento para salir
+- Presiona **ENTER dos veces** para terminar de escribir tu mensaje
+- Escribe **'s'** o **'si'** para confirmar el envío
 
-Cuantos destinatarios? (numero): 1
+### Accesos directos
 
-Ingresa los 1 correos:
-  Destinatario 1: destinatario@gmail.com
-```
+El lanzador crea automáticamente accesos directos para facilitar la ejecución:
 
----
-
-## 📁 Estructura del proyecto
-
-```
-xonimail/
-├── 📄 start.py                 # Archivo principal del programa
-├── 📄 token.txt                # Tu token de Gmail (debes crearlo)
-├── 📄 requisitos.txt         # Dependencias de Python (solo compatibilidad)
-└── 📄 README.md                # Este archivo
-```
+- **Windows:** `INICIAR_XONIMAIL.bat` (doble clic)
+- **Linux:** `INICIAR_XONIMAIL.sh` (ejecutar con `./INICIAR_XONIMAIL.sh`)
+- **MacOS:** `INICIAR_XONIMAIL.command` (doble clic)
 
 ---
 
-## 📋 Ejemplo de sesión completa
+## 📋 Ejemplo de sesión
 
 ```
 ============================================================
@@ -210,21 +193,7 @@ XONIMAIL - ENVIO DE CORREOS DESDE TERMINAL
 ============================================================
 (Presiona CTRL+C en cualquier momento para salir)
 
-==================================================
-AYUDA - XONIMAIL
-==================================================
-Comandos disponibles:
-  * CTRL+C - Salir del programa
-  * ENTER - Continuar con el siguiente paso
-
-Para enviar correos:
-  1. El token se lee automaticamente de token.txt
-  2. Ingresa tu correo Gmail
-  3. Escribe el asunto y mensaje
-  4. Agrega los destinatarios
-==================================================
-
-Tu correo Gmail: darian@gmail.com
+Tu correo Gmail: usuario@gmail.com
 Token cargado desde token.txt
 
 Asunto del correo: Reporte semanal
@@ -243,7 +212,7 @@ Ingresa los 2 correos:
 ==================================================
 RESUMEN DE ENVIO
 ==================================================
-De: darian@gmail.com
+De: usuario@gmail.com
 Asunto: Reporte semanal
 Destinatarios: 2
    1. juan@gmail.com
@@ -280,70 +249,72 @@ Proceso completado! Gracias por usar XONIMAIL
 
 ---
 
-## 🔧 Solución de problemas
+## ✋ Pausar / Detener
 
-### Error de autenticación
-```
-╔══════════════════════════════════════════════════════════╗
-║                    POSIBLES SOLUCIONES                   ║
-╠══════════════════════════════════════════════════════════╣
-║                                                          ║
-║  • Verifica que el token en token.txt sea correcto       ║
-║  • Asegurate de tener activada la verificación en        ║
-║    dos pasos en tu cuenta de Gmail                       ║
-║  • Genera una nueva contraseña de aplicación             ║
-║  • Borra token.txt y crea uno nuevo                      ║
-║                                                          ║
-╚══════════════════════════════════════════════════════════╝
-```
+- Para detener el programa en cualquier momento: **Ctrl + C**
+- Si necesitas cancelar el envío, responde **'n'** en la confirmación
 
-### Error de conexión
+---
+
+## 🔒 Consideraciones de seguridad y ética
+
+- **No compartas tu archivo token.txt** con nadie
+- Tus credenciales solo se usan durante la sesión
+- El token se guarda localmente en tu computadora
+- Usa SMTP seguro de Gmail con cifrado TLS
+- No se envían tus datos a ningún servidor externo
+- Este programa es SOLO para fines educativos
+
+---
+
+## 🐛 Problemas comunes
+
+### "Error de autenticación"
+- Verifica que el token en token.txt sea correcto
+- Asegúrate de tener activada la verificación en dos pasos
+- Genera una nueva contraseña de aplicación
+
+### "Error de conexión"
 - Revisa tu conexión a internet
 - Verifica que el puerto 587 no esté bloqueado
 - Prueba con otra red
 
-### Error de permisos en Linux
+### "No se encuentra token.txt"
+- El programa te guiará para crearlo
+- Sigue las instrucciones de la sección "Configuración del Token"
+
+### "Error en Linux con --break-system-packages"
 ```bash
-# Si tienes problemas con --break-system-packages
+# Alternativa usando --user
 pip install --user -r requisitos.txt
 ```
 
 ---
 
-## 🔒 Nota de Seguridad
+## 📦 Archivos incluidos
 
-- Tus credenciales solo se usan durante la sesión
-- El token se guarda localmente en token.txt
-- No se envían tus datos a ningún servidor externo
-- Usa SMTP seguro de Gmail con cifrado TLS
-- No compartas tu archivo token.txt con nadie
-
----
-
-## 👨‍💻 Desarrollador
-
-**Darian Alberto Camacho Salas**
+- **start.py** — Lanzador universal (verifica dependencias y ejecuta el programa)
+- **xonimail.py** — Programa principal con la funcionalidad de envío de correos
+- **requisitos.txt** — Dependencias Python (solo por compatibilidad)
+- **token.txt** — Archivo con tu token (debes crearlo)
+- **README.md** — Este archivo de documentación
 
 ---
 
-## 📞 Contacto
+## 📊 Nota sobre dependencias
 
-¿Dudas, sugerencias o reportes de errores?
+XONIMAIL **solo usa librerías estándar de Python**:
+- `smtplib` - Para conexión SMTP con Gmail
+- `email` - Para construir mensajes de correo
 
-**Instagram:** @xonidu
-
-**Facebook:** xonidu
-
-**Email:** xonidu@gmail.com
+No se requieren dependencias externas. El archivo `requisitos.txt` es solo por compatibilidad con el sistema de instalación.
 
 ---
 
-## 📝 Licencia
+## ✉️ Contacto y Créditos
 
-Este proyecto está bajo una **licencia educativa**. El código puede ser utilizado con fines de aprendizaje y enseñanza, siempre respetando los derechos de autor y dando crédito al desarrollador.
+- **Proyecto:** XONIMAIL
+- **Contacto:** xonidu@gmail.com
+- **Creador:** Darian Alberto Camacho Salas
+- **#Somos XONIDU**
 
-**No se permite el uso comercial no autorizado ni la redistribución sin permiso explícito.**
-
----
-
-### ⚡ XONIMAIL v1.0 - Cliente de Gmail para Terminal ⚡
