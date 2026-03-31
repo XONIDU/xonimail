@@ -316,5 +316,5 @@ No se requieren dependencias externas. El archivo `requisitos.txt` es solo por c
 - **Proyecto:** XONIMAIL
 - **Contacto:** xonidu@gmail.com
 - **Creador:** Darian Alberto Camacho Salas
-- **#Somos XONIDU**
+- **Somos XONIDU**
 
