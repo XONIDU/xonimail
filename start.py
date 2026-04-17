@@ -3,7 +3,7 @@
 
 """
 XONIMAIL 2026 - Lanzador Universal de Cliente de Gmail para Terminal
-Este script ejecuta xonimail.py y verifica dependencias
+Este script ejecuta xonimail.py
 Desarrollado por: Darian Alberto Camacho Salas
 #Somos XONIDU
 """
