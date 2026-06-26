@@ -70,7 +70,7 @@ pip3 install --break-system-packages -r requisitos.txt
 sudo dnf install python3-pip
 pip3 install --break-system-packages -r requisitos.txt
 ```
---- 
+
 ### Opción 2 – Comando `xoninstall` (recomendado para futuras herramientas XONI)
 
 Agrega la siguiente función a tu `~/.bashrc` con un solo comando:
@@ -90,8 +90,6 @@ python start.py
 
 > **Nota:** Esta función te servirá para instalar cualquier otra herramienta futura de XONIDU (por ejemplo `xoninstall xonicli`).
 
----
-
 ### 🍎 macOS
 
 ```bash
@@ -102,8 +100,62 @@ pip3 install -r requisitos.txt
 ### 🪟 Windows
 
 ```bash
+# En Command Prompt o PowerShell
 pip install -r requisitos.txt
+
+# Si tienes problemas con permisos
+pip install --user -r requisitos.txt
 ```
+
+#### Acceso directo para Windows
+
+Guarda el siguiente código como `INICIAR_XONIMAIL.bat` en la carpeta del proyecto:
+
+```batch
+@echo off
+title XONIMAIL 2026 - Cliente de Gmail para Terminal
+color 0A
+
+:: ============================================================
+:: SOLICITAR PERMISOS DE ADMINISTRADOR
+:: ============================================================
+net session >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Solicitando permisos de administrador...
+    echo.
+    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
+    echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
+    "%temp%\getadmin.vbs"
+    del "%temp%\getadmin.vbs"
+    exit /B
+)
+
+:: ============================================================
+:: EJECUTAR start.py CON PERMISOS DE ADMINISTRADOR
+:: ============================================================
+cls
+echo ============================================================
+echo           XONIMAIL 2026 - Cliente de Gmail para Terminal
+echo              (Modo Administrador)
+echo ============================================================
+echo.
+echo [OK] Permisos de administrador obtenidos
+echo.
+echo Iniciando XONIMAIL...
+echo.
+echo [INFO] Cliente de Gmail para dispositivos de bajos recursos
+echo [INFO] Archivo de token: %USERPROFILE%\.xonimail\token.txt
+echo.
+echo Para salir: Presiona Ctrl+C
+echo ============================================================
+echo.
+
+python start.py
+
+pause
+```
+
+> **Nota:** El archivo `.bat` solicitará permisos de administrador automáticamente para garantizar que Python y las dependencias funcionen correctamente en Windows.
 
 ---
 
@@ -183,6 +235,16 @@ O desde el directorio de instalación manual:
 python start.py
 # o
 python3 start.py
+```
+
+### En Windows:
+
+```bash
+# Doble clic en el archivo
+INICIAR_XONIMAIL.bat
+
+# O desde la terminal
+python start.py
 ```
 
 ### Flujo interactivo:
@@ -286,6 +348,7 @@ xonimail/
 ├── start.py                 # Lanzador principal
 ├── xonimail.py              # Programa principal
 ├── requisitos.txt           # Dependencias
+├── INICIAR_XONIMAIL.bat     # Acceso directo para Windows
 └── README.md                # Documentación
 ```
 
@@ -320,6 +383,12 @@ chmod 600 ~/.xonimail/token.txt
 # Alternativa usando --user
 pip install --user -r requisitos.txt
 ```
+
+### Error en Windows: "python no reconocido"
+
+- Asegúrate de que Python esté instalado
+- Agrega Python al PATH durante la instalación
+- O usa la ruta completa: `C:\Python3\python.exe start.py`
 
 ---
 
@@ -378,4 +447,3 @@ pacman -Ql xonimail
 ---
 
 **Hecho para computación de bajos recursos** ⚡
-
