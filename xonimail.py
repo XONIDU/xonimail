@@ -203,10 +203,10 @@ def main():
         app = XONIMAIL()
         app.run()
     except KeyboardInterrupt:
-        print("\n\nBY: XONIDU - Darian Alberto Camacho Salas")
+        print("\n\nBY: XONIDU")
         print("Hasta luego!")
     except EOFError:
-        print("\n\nBY: XONIDU - Darian Alberto Camacho Salas")
+        print("\n\nBY: XONIDU")
         print("Hasta luego!")
 
 if __name__ == "__main__":
